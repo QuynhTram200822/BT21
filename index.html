@@ -1,0 +1,192 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Validation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./index.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+  <!-- Form add information -->
+  <form id="myForm">
+    <!-- Text input -->
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name">
+
+    <label for="studentCode">Student Code</label>
+    <input type="text" id="studentCode" name="studentCode">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+
+    <!-- Department -->
+    <div class="mb-4">
+      <label for="department">Department:</label>
+      <select id="department" name="department">
+        <option value="CS">Computer Science</option>
+        <option value="DE">Digital Economy</option>
+        <option value="BA">Business Administration</option>
+      </select>
+    </div>
+
+    <!-- Gender -->
+    <div class="mb-4">
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+
+    <!-- Birth Date -->
+    <label for="birthDate">Birth Date:</label>
+    <input type="date" id="birthDate" name="birthDate">
+    <div class="d-flex justify-content-center ">
+      <button type="submit" class="m-4 btn-submit submit">Submit</button>
+    </div>
+
+  </form>
+
+  <!-- Form edit information -->
+  <div id="myModal" class="modal">
+    <div class="modal-content position-relative">
+      <button type="button" class="btn-close close position-absolute top-0 end-0" aria-label="Close"></button>
+      <h2 class="text-center">Edit Student Information</h2>
+      <form id="editForm">
+        <!-- <input type="hidden" id="editIndex"> -->
+        <div class="form-group">
+          <label for="editName">Name:</label>
+          <input type="text" id="editName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="editStudentCode">Student Code:</label>
+          <input type="text" id="editStudentCode" required>
+        </div>
+
+        <div class="form-group">
+          <label for="editEmail">Email:</label>
+          <input type="email" id="editEmail" required>
+        </div>
+
+        <div class="form-group">
+          <label for="editDepartment">Department:</label>
+          <select id="editDepartment" name="editDepartment">
+            <option value="CS">Computer Science</option>
+            <option value="DE">Digital Economy</option>
+            <option value="BA">Business Administration</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="editGender">Gender:</label>
+          <select id="editGender" name="editGender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editBirthDate">Birth Date:</label>
+          <input type="date" id="editBirthDate" required>
+        </div>
+
+        <div class="form-group d-flex justify-content-center">
+          <button type="button" id="updateBtn" onclick="updateStudent()" class="m-4">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Form del information -->
+  <div id="confirmModal" class="modal">
+    <div class="modal-content position-relative">
+      <button type="button" class="btn-close btn_close_del position-absolute top-0 end-0" aria-label="Close"></button>
+      <p>Are you sure you want to delete <span id="confirmStudentName"></span>?</p>
+      <div class="modal-buttons">
+        <button id="cancelButton">Cancel</button>
+        <button id="deleteButton">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form filter information -->
+  <div id="filter" class="filter">
+    <div class="modal-content position-relative">
+      <button type="button" class="btn-close close-filter position-absolute top-0 end-0" aria-label="Close"></button>
+      <h2 class="text-center">Filter Student Information</h2>
+      <form id="filterForm">
+        <div>
+          <label for="filterName">Name:</label>
+          <input type="text" id="filterName" required>
+        </div>
+
+        <div>
+          <label for="filterStudentCode">Student Code:</label>
+          <input type="text" id="filterStudentCode" required>
+        </div>
+
+        <div>
+          <label for="filterEmail">Email:</label>
+          <input type="email" id="filterEmail" required>
+        </div>
+        <div>
+          <label for="filterDepartment">Department:</label>
+          <select id="filterDepartment" name="filterDepartment">
+            <option value="All">All</option>
+            <option value="CS">Computer Science</option>
+            <option value="DE">Digital Economy</option>
+            <option value="BA">Business Administration</option>
+          </select>
+        </div>
+        <div>
+          <label for="filterGender">Gender:</label>
+          <select id="filterGender" name="filterGender">
+            <option value="All">All</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div>
+          <label for="filterBirthDate">Birth Date:</label>
+          <input type="date" id="filterBirthDate" required>
+        </div>
+        <div class="form-group d-flex gap-2 mt-3 ">
+          <button type="button" onclick="filterStudents()">Filter</button>
+          <button type="button" onclick="resetFilter()">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Search information by name -->
+  <div class="search row m-5 justify-content-center align-items-center ">
+    <div class="input-container col-3">
+      <input class="p-4 me-4 w-75 align-center input-field" type="text" id="searchInput"
+        placeholder="Enter student name...">
+      <button type="button" class="btn-close button-cls " onclick="clearInput()"></button>
+    </div>
+    <div class="col-2 ">
+      <button onclick="searchStudent()">Search</button>
+    </div>
+    <div class="col-2 ">
+      <button onclick="displayFilterForm()">Filter</button>
+    </div>
+  </div>
+
+  <h2 class="m-4 text-center">Student List</h2>
+  <div id="studentList"></div>
+  <div id="pagination" class="d-flex justify-content-center gap-3"></div>
+</body>
+
+</html>
